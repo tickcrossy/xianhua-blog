@@ -2,21 +2,47 @@
 // 首页文章流、归档、标签列表
 // ---------------------------------------------------------------------------
 
-.entry {
-  padding: 1.6rem 0;
-}
-.entry-list > .entry + .entry {
-  border-top: 1px solid var(--border-soft);
+// 每篇文章是一张暖色圆角卡片，卡片之间留空隙，鼠标移上去轻轻抬起。
+.entry-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
 }
 
-// 置顶区自带一条分隔线，内部不再叠加各自的上下留白
-.entry-list--pinned {
-  padding-bottom: 1.7rem;
-  margin-bottom: 0.5rem;
-  border-bottom: 1px solid var(--border-soft);
+.entry {
+  position: relative;
+  padding: 1.25rem 1.4rem;
+  background: var(--card);
+  border: 1px solid var(--border-soft);
+  border-radius: 16px;
+  box-shadow: var(--card-shadow);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
 }
-.entry-list--pinned .entry { padding: 0 0 1.3rem; }
-.entry-list--pinned .entry:last-child { padding-bottom: 0; }
+// 让整张卡片都可点：标题链接的伪元素铺满卡片，点哪儿都进文章，
+// 同时保留链接语义（无障碍、右键复制链接都正常）。
+.entry { cursor: pointer; }
+.entry-title a::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+.entry:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--card-shadow-hover);
+  border-color: var(--border);
+}
+
+// 置顶卡片：左侧一道暖色描边 + 淡淡的底色，一眼看出被按住了
+.entry.is-pinned {
+  background: var(--medium-bg);
+  border-color: transparent;
+  box-shadow: inset 3px 0 0 var(--accent), var(--card-shadow);
+}
+.entry.is-pinned:hover {
+  box-shadow: inset 3px 0 0 var(--accent), var(--card-shadow-hover);
+}
+.entry-list--pinned { margin-bottom: 0.9rem; }
 
 .entry-head {
   display: flex;

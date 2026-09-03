@@ -5,7 +5,7 @@
 
 # 侧边栏头像。放在主题的 source/ 下即可，换图直接替换文件。
 # 留空则不显示头像。
-avatar: /images/avatar.png
+avatar:
 
 # 侧边栏导航。key 是显示文案（可被 languages/*.yml 翻译），value 是路径。
 menu:

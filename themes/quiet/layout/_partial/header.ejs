@@ -1,15 +1,14 @@
-<aside class="site-sidebar">
-  <div class="sidebar-inner">
-    <div class="site-id">
-      <% if (theme.avatar) { %>
-        <a class="site-avatar" href="<%= url_for('/') %>" aria-label="<%= config.title %>">
-          <img src="<%= url_for(theme.avatar) %>" alt="<%= config.author || config.title %>"
-               width="88" height="88" loading="lazy">
-        </a>
-      <% } %>
-      <a class="site-title" href="<%= url_for('/') %>"><%= config.title %></a>
-      <% if (theme.tagline) { %><p class="site-tagline"><%= theme.tagline %></p><% } %>
-    </div>
+<header class="site-header">
+  <div class="site-header-inner">
+    <% if (theme.avatar) { %>
+      <a class="site-avatar" href="<%= url_for('/') %>" aria-label="<%= config.title %>">
+        <img src="<%= url_for(theme.avatar) %>" alt="<%= config.author || config.title %>"
+             width="96" height="96" loading="lazy">
+      </a>
+    <% } %>
+
+    <a class="site-title" href="<%= url_for('/') %>"><%= config.title %></a>
+    <% if (theme.tagline) { %><p class="site-tagline"><%= theme.tagline %></p><% } %>
 
     <nav class="site-nav" aria-label="站点导航">
       <% for (const [label, path] of Object.entries(theme.menu || {})) { %>
@@ -17,7 +16,7 @@
       <% } %>
     </nav>
 
-    <div class="sidebar-foot">
+    <div class="site-tools">
       <% if ((theme.color_scheme || 'auto') === 'auto') { %>
         <button class="scheme-toggle" type="button" aria-label="切换深浅色" title="切换深浅色">
           <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true" width="16" height="16">
@@ -35,4 +34,4 @@
       <% } %>
     </div>
   </div>
-</aside>
+</header>

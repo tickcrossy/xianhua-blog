@@ -100,20 +100,21 @@ a:hover { color: var(--accent-hover); }
 [data-scheme='dark'] .scheme-toggle .i-moon { display: inline; }
 
 // --- 正文容器 ---------------------------------------------------------------
-// 侧栏之外的整块（正文 + 页脚），宽屏时给固定侧栏让出左边距。
+// 头部在上方居中，正文单栏在下方铺开，中间留一段呼吸空间。
 
 .site-body {
-  padding-top: 3.5rem;
+  padding-top: 2.5rem;
 }
 
 // --- 页脚 ------------------------------------------------------------------
 
 .site-footer {
-  margin-top: 6rem;
-  padding: 2rem 0 4rem;
+  margin-top: 5rem;
+  padding: 2rem 0 3.5rem;
   border-top: 1px solid var(--border-soft);
   font-size: 0.85rem;
   color: var(--fg-faint);
+  text-align: center;
 }
 .site-footer p { margin: 0.4rem 0; }
 .site-footer a { color: var(--fg-muted); }
@@ -123,6 +124,7 @@ a:hover { color: var(--accent-hover); }
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .site-footer .sep { padding: 0 0.15rem; }

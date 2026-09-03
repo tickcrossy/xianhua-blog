@@ -1,0 +1,98 @@
+// ---------------------------------------------------------------------------
+// 顶部居中头部（头像 / 站名 / 副标题 / 导航 / 深浅色切换）
+// 「暖意杂志」布局：一切居中，正文在下方单栏铺开，和 my-blog 的左侧固定栏不同。
+// ---------------------------------------------------------------------------
+
+.site-header {
+  padding: 3.25rem $gutter 0;
+  text-align: center;
+}
+
+.site-header-inner {
+  max-width: $measure;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+// --- 头像 -------------------------------------------------------------------
+
+.site-avatar {
+  display: block;
+  width: 5rem;
+  height: 5rem;
+  margin-bottom: 1rem;
+  border-radius: 50%;
+  overflow: hidden;
+  // 一圈与底色同色的描边 + 一层柔和投影，像贴上去的一张小照片
+  box-shadow: 0 0 0 4px var(--bg), 0 6px 18px rgba(60, 45, 30, 0.12);
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+// 鼠标移上去俏皮地歪一下头，呼应「轻松」的调性
+.site-avatar:hover { transform: rotate(-5deg) scale(1.05); }
+.site-avatar img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+// --- 站名 / 副标题 ----------------------------------------------------------
+
+.site-title {
+  display: inline-block;
+  font-size: 1.85rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  line-height: 1.3;
+  color: var(--fg);
+}
+.site-title:hover { color: var(--accent); }
+
+.site-tagline {
+  margin: 0.45rem 0 0;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--fg-muted);
+}
+
+// --- 导航（圆角胶囊）--------------------------------------------------------
+
+.site-nav {
+  margin-top: 1.35rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.35rem 0.4rem;
+}
+.site-nav a {
+  padding: 0.32rem 0.95rem;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  color: var(--fg-muted);
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.site-nav a:hover {
+  background: var(--bg-soft);
+  color: var(--fg);
+}
+
+// --- 底部小工具（深浅色切换 + 社交链接）------------------------------------
+
+.site-tools {
+  margin-top: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  font-size: 0.82rem;
+}
+.sidebar-social { color: var(--fg-faint); }
+.sidebar-social:hover { color: var(--accent); }
+
+@media (max-width: 40rem) {
+  .site-header { padding-top: 2.5rem; }
+  .site-avatar { width: 4.25rem; height: 4.25rem; }
+  .site-title { font-size: 1.6rem; }
+}
