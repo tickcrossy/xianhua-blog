@@ -2,88 +2,141 @@
 // 首页文章流、归档、标签列表
 // ---------------------------------------------------------------------------
 
-// 每篇文章是一张暖色圆角卡片，卡片之间留空隙，鼠标移上去轻轻抬起。
+// 文章流是响应式多栏网格：桌面两到三栏，手机单栏。
+// 不再用厚卡片，靠留白和排版分隔，风格更接近极简杂志。
 .entry-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.9rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.4rem 2.4rem;
+}
+@media (min-width: 44rem) {
+  .wrap--wide .entry-list { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 62rem) {
+  .wrap--wide .entry-list { grid-template-columns: repeat(3, 1fr); }
 }
 
 .entry {
   position: relative;
-  padding: 1.25rem 1.4rem;
-  background: var(--card);
-  border: 1px solid var(--border-soft);
-  border-radius: 16px;
-  box-shadow: var(--card-shadow);
-  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
-}
-// 让整张卡片都可点：标题链接的伪元素铺满卡片，点哪儿都进文章，
-// 同时保留链接语义（无障碍、右键复制链接都正常）。
-.entry { cursor: pointer; }
-.entry-title a::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-}
-.entry:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--card-shadow-hover);
-  border-color: var(--border);
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
 }
 
-// 置顶卡片：左侧一道暖色描边 + 淡淡的底色，一眼看出被按住了
-.entry.is-pinned {
-  background: var(--medium-bg);
-  border-color: transparent;
-  box-shadow: inset 3px 0 0 var(--accent), var(--card-shadow);
-}
-.entry.is-pinned:hover {
-  box-shadow: inset 3px 0 0 var(--accent), var(--card-shadow-hover);
-}
-.entry-list--pinned { margin-bottom: 0.9rem; }
+// --- 元信息行：分类 —— 日期 ------------------------------------------------
 
-.entry-head {
+.entry-meta {
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.55rem;
+  min-height: 1.2rem;
+}
+
+.entry-cat {
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+}
+.entry-cat:hover { color: var(--accent-hover); }
+
+// 分类和日期之间一道短短的横线，呼应参考站的排版
+.entry-rule {
+  flex: none;
+  width: 1.6rem;
+  height: 1px;
+  background: var(--border);
 }
 
 .entry-date {
   font-family: $mono;
-  font-size: 0.76rem;
+  font-size: 0.74rem;
   letter-spacing: 0.02em;
   color: var(--fg-faint);
   font-variant-numeric: tabular-nums;
 }
 
+// 置顶：一枚干净的暖色小胶囊，取代原来的灰框
 .entry-pin {
+  flex: none;
   font-size: 0.68rem;
-  color: var(--fg-faint);
-  border: 1px solid var(--border);
-  border-radius: 3px;
-  padding: 0 0.3rem;
-  line-height: 1.5;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  background: var(--medium-bg);
+  border-radius: 999px;
+  padding: 0.08rem 0.55rem;
+  line-height: 1.6;
 }
+
+// --- 标题 / 摘要 / 阅读更多 ------------------------------------------------
 
 .entry-title {
   margin: 0;
-  font-size: 1.12rem;
+  font-size: 1.14rem;
   font-weight: 600;
-  line-height: 1.5;
+  line-height: 1.45;
   letter-spacing: 0.01em;
 }
 .entry-title a { color: var(--fg); }
 .entry-title a:hover { color: var(--accent); }
-.entry-title .tag { margin-left: 0.45rem; }
 
 .entry-excerpt {
-  margin: 0.35rem 0 0;
-  font-size: 0.92rem;
+  margin: 0.5rem 0 0;
+  font-size: 0.9rem;
   line-height: 1.7;
   color: var(--fg-muted);
+  // 网格里各条摘要裁到三行，行高对齐、版面更整齐
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.entry-more {
+  align-self: flex-start;
+  margin-top: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--fg-muted);
+}
+.entry-more::before {
+  content: '';
+  width: 1.4rem;
+  height: 1px;
+  background: currentColor;
+  transition: width 0.18s ease;
+}
+.entry-more:hover { color: var(--accent); }
+.entry-more:hover::before { width: 2rem; }
+
+// --- 置顶 / 首篇 featured：单独通栏，标题更大 -------------------------------
+
+.entry-list--pinned {
+  display: block;
+  margin-bottom: 3rem;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.entry--featured .entry-title {
+  font-size: 1.6rem;
+  line-height: 1.35;
+}
+.entry--featured .entry-excerpt {
+  font-size: 0.98rem;
+  -webkit-line-clamp: 4;
+  max-width: $measure;
+}
+
+@media (max-width: 44rem) {
+  .entry-list { gap: 2rem; }
+  .entry-list--pinned { margin-bottom: 2.2rem; padding-bottom: 2.2rem; }
+  .entry--featured .entry-title { font-size: 1.35rem; }
 }
 
 // --- 归档 / 标签页 ---------------------------------------------------------

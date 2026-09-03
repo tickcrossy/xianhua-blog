@@ -12,17 +12,21 @@ $mono = ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mo
 // 字号调大后栏宽要跟着收，否则一行的字数会变多、读起来更累。
 // 39rem × 18px ≈ 700px，和之前 43rem × 17px 的行长基本一致。
 $measure = 39rem;
+// 首页 / 列表页用更宽的容器，容纳多栏网格；文章正文仍走窄栏 $measure。
+$measure-wide = 66rem;
 $gutter  = 1.5rem;
 
 :root {
-  --bg: #fbf8f3;
-  --bg-soft: #f3eee5;
-  --bg-code: #f2ede3;
-  --fg: #2a2621;
-  --fg-muted: #6f695f;
-  --fg-faint: #a19a8d;
-  --border: #e6ddce;
-  --border-soft: #efe8db;
+  // 白底为主，只留一丝暖意：底色是几乎察觉不到的暖白，
+  // 强调色仍走温橙，整体比原来的奶油调更干净、更接近极简排版。
+  --bg: #fdfcfa;
+  --bg-soft: #f5f1ea;
+  --bg-code: #f4efe7;
+  --fg: #24211c;
+  --fg-muted: #6b655b;
+  --fg-faint: #9c958a;
+  --border: #e9e3d8;
+  --border-soft: #f0ebe2;
   --accent: #c2693c;
   --accent-hover: #a5502a;
   --mark: #fbe7bd;
@@ -37,10 +41,10 @@ $gutter  = 1.5rem;
   --plain: var(--fg-muted);
   --plain-bg: var(--bg-soft);
 
-  // 卡片：底色 + 悬浮投影
-  --card: #fffdf9;
-  --card-shadow: 0 1px 2px rgba(60, 45, 30, 0.04);
-  --card-shadow-hover: 0 8px 24px rgba(60, 45, 30, 0.10);
+  // 列表页不再用厚卡片，阴影收到几乎不可见，靠留白和排版分隔。
+  --card: var(--bg);
+  --card-shadow: none;
+  --card-shadow-hover: 0 6px 20px rgba(60, 45, 30, 0.07);
 }
 
 [data-scheme='dark'] {
@@ -64,7 +68,7 @@ $gutter  = 1.5rem;
   --hard: #e0917c;
   --hard-bg: #2e2019;
 
-  --card: #242019;
-  --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-  --card-shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.35);
+  --card: var(--bg);
+  --card-shadow: none;
+  --card-shadow-hover: 0 6px 20px rgba(0, 0, 0, 0.3);
 }

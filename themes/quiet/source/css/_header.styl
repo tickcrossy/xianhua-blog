@@ -57,26 +57,37 @@
   color: var(--fg-muted);
 }
 
-// --- 导航（圆角胶囊）--------------------------------------------------------
+// --- 导航（下划线风）--------------------------------------------------------
 
 .site-nav {
   margin-top: 1.35rem;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 0.35rem 0.4rem;
+  gap: 0.3rem 1.5rem;
 }
 .site-nav a {
-  padding: 0.32rem 0.95rem;
-  border-radius: 999px;
-  font-size: 0.9rem;
+  position: relative;
+  padding: 0.2rem 0;
+  font-size: 0.92rem;
   color: var(--fg-muted);
-  transition: background 0.15s ease, color 0.15s ease;
+  transition: color 0.15s ease;
 }
-.site-nav a:hover {
-  background: var(--bg-soft);
-  color: var(--fg);
+// 下划线从中间展开，呼应参考站导航的强调线
+.site-nav a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.15rem;
+  height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.18s ease;
 }
+.site-nav a:hover { color: var(--fg); }
+.site-nav a:hover::after { transform: scaleX(1); }
 
 // --- 底部小工具（深浅色切换 + 社交链接）------------------------------------
 

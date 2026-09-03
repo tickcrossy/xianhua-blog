@@ -1,18 +1,22 @@
-<article class="entry<%= locals.pinned ? ' is-pinned' : '' %>">
-  <div class="entry-head">
-    <time class="entry-date" datetime="<%= date_xml(post.date) %>"><%= date(post.date, 'YYYY-MM-DD') %></time>
+<article class="entry<%= locals.pinned ? ' entry--featured' : '' %>">
+  <div class="entry-meta">
     <% if (locals.pinned) { %><span class="entry-pin"><%= __('pinned') %></span><% } %>
+    <% const firstTag = post.tags && post.tags.length ? post.tags.first() : null; %>
+    <% if (firstTag) { %>
+      <a class="entry-cat" href="<%= url_for(firstTag.path) %>"><%= firstTag.name %></a>
+    <% } %>
+    <span class="entry-rule" aria-hidden="true"></span>
+    <time class="entry-date" datetime="<%= date_xml(post.date) %>"><%= date(post.date, 'YYYY-MM-DD') %></time>
   </div>
 
   <h2 class="entry-title">
     <a href="<%= url_for(post.path) %>"><%= post.title || __('untitled') %></a>
-    <% post.tags.each(tag => { %>
-      <span class="tag tag--<%= quiet_difficulty(tag.name) || 'plain' %>"><%= tag.name %></span>
-    <% }) %>
   </h2>
 
   <% if ((theme.index || {}).excerpt !== false) { %>
     <% const summary = quiet_excerpt(post); %>
     <% if (summary) { %><p class="entry-excerpt"><%= summary %></p><% } %>
   <% } %>
+
+  <a class="entry-more" href="<%= url_for(post.path) %>"><%= __('read_more') %></a>
 </article>
