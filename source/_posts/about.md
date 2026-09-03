@@ -1,9 +1,10 @@
 ---
 title: about
-date: 2026-09-03 08:30:00
+date: 2026-08-31 08:30:00
 top: true
-tags: 闲话
+tags: 
 ---
+about this blog.
 <!-- more -->
 用来发闲话的地方，没什么正经内容，想到什么写什么。
 
