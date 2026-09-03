@@ -1,0 +1,59 @@
+// ---------------------------------------------------------------------------
+// 设计变量
+// 颜色一律走 CSS 自定义属性，深浅色只覆盖变量、不重写规则。
+// ---------------------------------------------------------------------------
+
+// 中英混排：英文交给系统 UI 字体，中文回落到平台自带的黑体，避免加载 webfont
+$sans = -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Source Han Sans SC', 'Noto Sans CJK SC', sans-serif;
+$mono = ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', 'Courier New', monospace;
+
+// 字号调大后栏宽要跟着收，否则一行的字数会变多、读起来更累。
+// 39rem × 18px ≈ 700px，和之前 43rem × 17px 的行长基本一致。
+$measure = 39rem;
+$gutter  = 1.5rem;
+
+:root {
+  --bg: #fbf8f3;
+  --bg-soft: #f3eee5;
+  --bg-code: #f2ede3;
+  --fg: #2a2621;
+  --fg-muted: #6f695f;
+  --fg-faint: #a19a8d;
+  --border: #e6ddce;
+  --border-soft: #efe8db;
+  --accent: #c2693c;
+  --accent-hover: #a5502a;
+  --mark: #fbe7bd;
+  --selection: #f2e0c8;
+
+  --easy: #5a8a4a;
+  --easy-bg: #eaf1e2;
+  --medium: #b07d28;
+  --medium-bg: #f6ecd4;
+  --hard: #b35540;
+  --hard-bg: #f6e4dc;
+  --plain: var(--fg-muted);
+  --plain-bg: var(--bg-soft);
+}
+
+[data-scheme='dark'] {
+  --bg: #1b1917;
+  --bg-soft: #242019;
+  --bg-code: #221e18;
+  --fg: #e8e2d6;
+  --fg-muted: #a49c8e;
+  --fg-faint: #706860;
+  --border: #342e26;
+  --border-soft: #29241d;
+  --accent: #e0955f;
+  --accent-hover: #eeb27f;
+  --mark: #4c3d1c;
+  --selection: #3a3020;
+
+  --easy: #8ec07c;
+  --easy-bg: #202a1a;
+  --medium: #d9ad63;
+  --medium-bg: #2c2515;
+  --hard: #e0917c;
+  --hard-bg: #2e2019;
+}

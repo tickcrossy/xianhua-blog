@@ -1,0 +1,57 @@
+<%
+  const opts = theme.post || {};
+  const body = quiet_body(page);
+  const showToc = opts.toc !== false;
+  const tocHtml = showToc
+    ? toc(body, { list_number: false, max_depth: opts.toc_max_depth || 3 })
+    : '';
+%>
+
+<div class="wrap">
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><%= page.title || __('untitled') %></h1>
+      <div class="post-meta">
+        <time datetime="<%= date_xml(page.date) %>"><%= date(page.date, 'YYYY-MM-DD') %></time>
+        <% page.tags.each(tag => { %>
+          <a class="tag tag--<%= quiet_difficulty(tag.name) || 'plain' %>" href="<%= url_for(tag.path) %>"><%= tag.name %></a>
+        <% }) %>
+        <% /* 加密文章的 body 是密码框，数出来的字数没有意义 */ %>
+        <% if (opts.word_count !== false && !page.encrypt) { %>
+          <span class="sep">·</span>
+          <span><%= quiet_word_count(body) %> <%= __('words') %></span>
+        <% } %>
+      </div>
+    </header>
+
+    <div class="post-content markdown">
+      <%- body %>
+    </div>
+  </article>
+
+  <% if (opts.prev_next !== false && (page.prev || page.next)) { %>
+    <nav class="post-nav" aria-label="上下篇">
+      <% if (page.prev) { %>
+        <a class="post-nav-item post-nav-prev" href="<%= url_for(page.prev.path) %>">
+          <span class="post-nav-label">← <%= __('prev_post') %></span>
+          <span class="post-nav-title"><%= page.prev.title || __('untitled') %></span>
+        </a>
+      <% } else { %><span></span><% } %>
+      <% if (page.next) { %>
+        <a class="post-nav-item post-nav-next" href="<%= url_for(page.next.path) %>">
+          <span class="post-nav-label"><%= __('next_post') %> →</span>
+          <span class="post-nav-title"><%= page.next.title || __('untitled') %></span>
+        </a>
+      <% } %>
+    </nav>
+  <% } %>
+
+  <%- partial('_partial/comments') %>
+</div>
+
+<% if (tocHtml) { %>
+  <aside class="post-toc" aria-label="目录">
+    <p class="post-toc-title"><%= __('contents') %></p>
+    <%- tocHtml %>
+  </aside>
+<% } %>

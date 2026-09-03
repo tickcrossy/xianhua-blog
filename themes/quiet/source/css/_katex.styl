@@ -1,0 +1,56 @@
+// ---------------------------------------------------------------------------
+// KaTeX（由 hexo-filter-katex 在构建期渲染，样式表由插件自行注入）
+// 这里只做两件事：把公式尺寸拉回正文节奏，以及让超长公式自己滚动。
+// ---------------------------------------------------------------------------
+
+.markdown .katex {
+  font-size: 1.05em;
+  color: inherit;
+}
+
+// 行内公式跟着中文行高走，不撑开行距
+.markdown .katex-html { white-space: nowrap; }
+
+// 窄屏上，比正文栏还长的行内公式没有横向滚动可用，只能让它换行 —
+// 否则整页会被撑出横向滚动条。KaTeX 会在关系符 / 二元运算符处断开。
+@media (max-width: 46rem) {
+  .markdown .katex-html { white-space: normal; }
+  .markdown .katex-display .katex-html { white-space: nowrap; }
+}
+
+.markdown .katex-display {
+  margin: 1.4em 0;
+  padding: 0.25em 0;
+  // 长公式横向滚动，页面本身永远不出现横向滚动条
+  overflow-x: auto;
+  overflow-y: hidden;
+  // 滚动条紧贴公式，不与下一段挤在一起
+  scrollbar-width: thin;
+}
+.markdown .katex-display > .katex {
+  white-space: nowrap;
+  text-align: center;
+}
+
+.markdown .katex-display::-webkit-scrollbar { height: 5px; }
+.markdown .katex-display::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+
+// 公式紧跟在段落末尾时，去掉重复的上边距
+.markdown p + .katex-display { margin-top: 1em; }
+
+// 列表项里的展示公式收紧一点
+.markdown li .katex-display { margin: 0.7em 0; }
+
+// KaTeX 的 mathml 副本只给读屏器，不参与布局
+.markdown .katex-mathml {
+  position: absolute;
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 0;
+  border: 0;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+}

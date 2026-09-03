@@ -1,0 +1,27 @@
+<%
+  const cats = site.categories.filter(c => c.length).sort('name').toArray();
+%>
+
+<div class="wrap">
+  <header class="list-header">
+    <h1 class="list-title"><%= page.title || __('categories') %></h1>
+    <p class="list-count"><%= cats.length %> <%= __('categories_count') %></p>
+  </header>
+
+  <% if (page.content) { %>
+    <div class="post-content markdown"><%- page.content %></div>
+  <% } %>
+
+  <% if (!cats.length) { %>
+    <p class="empty"><%= __('no_categories') %></p>
+  <% } %>
+
+  <ul class="archive-list">
+    <% for (const cat of cats) { %>
+      <li class="archive-item">
+        <a href="<%= url_for(cat.path) %>"><%= cat.name %></a>
+        <span class="tag-count"><%= cat.length %></span>
+      </li>
+    <% } %>
+  </ul>
+</div>

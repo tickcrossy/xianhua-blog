@@ -1,0 +1,244 @@
+// ---------------------------------------------------------------------------
+// Markdown 正文
+// 这里是整个主题真正被读的地方，节奏以「段落间距 = 1em」为基准展开。
+// ---------------------------------------------------------------------------
+
+.markdown {
+  overflow-wrap: break-word;
+  word-break: normal;
+  line-break: normal;
+}
+
+.markdown > *:first-child { margin-top: 0; }
+.markdown > *:last-child { margin-bottom: 0; }
+
+.markdown p {
+  margin: 0 0 1.15em;
+}
+
+// --- 标题 ------------------------------------------------------------------
+
+.markdown h1,
+.markdown h2,
+.markdown h3,
+.markdown h4,
+.markdown h5,
+.markdown h6 {
+  margin: 2.4em 0 0.8em;
+  font-weight: 650;
+  line-height: 1.45;
+  letter-spacing: 0.005em;
+  scroll-margin-top: 1.5rem;
+}
+
+.markdown h1 { font-size: 1.5rem; }
+.markdown h2 {
+  font-size: 1.25rem;
+  padding-bottom: 0.35em;
+  border-bottom: 1px solid var(--border-soft);
+}
+.markdown h3 { font-size: 1.08rem; }
+.markdown h4 { font-size: 1rem; }
+.markdown h5,
+.markdown h6 {
+  font-size: 0.92rem;
+  color: var(--fg-muted);
+}
+
+// 锚点：hexo-renderer-marked 已经在标题开头放了一个空的 .headerlink，
+// 把它挪到左侧留白里，常态隐形，悬停标题时才浮现。
+.markdown h1,
+.markdown h2,
+.markdown h3,
+.markdown h4 { position: relative; }
+
+.markdown .headerlink {
+  position: absolute;
+  left: -1.05em;
+  width: 1.05em;
+  text-align: left;
+  font-weight: 400;
+  color: var(--fg-faint);
+  text-decoration: none;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+.markdown .headerlink::before { content: '#'; }
+.markdown h1:hover .headerlink,
+.markdown h2:hover .headerlink,
+.markdown h3:hover .headerlink,
+.markdown h4:hover .headerlink,
+.markdown .headerlink:focus-visible { opacity: 1; }
+
+// 窄屏没有左侧留白可用，锚点直接不出现
+@media (max-width: 46rem) {
+  .markdown .headerlink { display: none; }
+}
+
+// --- 正文链接 ---------------------------------------------------------------
+
+.markdown a {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+  text-decoration-color: var(--border);
+  transition: text-decoration-color 0.15s ease, color 0.15s ease;
+}
+.markdown a:hover { text-decoration-color: currentColor; }
+
+// --- 列表 ------------------------------------------------------------------
+
+.markdown ul,
+.markdown ol {
+  margin: 0 0 1.15em;
+  padding-left: 1.5em;
+}
+.markdown li { margin: 0.3em 0; }
+.markdown li > ul,
+.markdown li > ol { margin: 0.3em 0; }
+.markdown ul { list-style: disc; }
+.markdown ul ul { list-style: circle; }
+.markdown ol { list-style: decimal; }
+.markdown li::marker { color: var(--fg-faint); }
+
+.markdown li.task-list-item {
+  list-style: none;
+  margin-left: -1.35em;
+}
+.markdown li.task-list-item input {
+  margin-right: 0.45em;
+  accent-color: var(--accent);
+}
+
+// --- 引用 / 分隔线 ----------------------------------------------------------
+
+.markdown blockquote {
+  margin: 1.5em 0;
+  padding: 0.1em 0 0.1em 1.1em;
+  border-left: 2px solid var(--border);
+  color: var(--fg-muted);
+}
+.markdown blockquote > *:last-child { margin-bottom: 0; }
+
+.markdown hr {
+  height: 0;
+  margin: 2.75em 0;
+  border: 0;
+  border-top: 1px solid var(--border-soft);
+}
+
+// --- 行内元素 ---------------------------------------------------------------
+
+.markdown strong { font-weight: 650; }
+
+.markdown mark {
+  background: var(--mark);
+  color: inherit;
+  padding: 0.05em 0.15em;
+  border-radius: 2px;
+}
+
+.markdown del { color: var(--fg-faint); }
+
+.markdown kbd {
+  font-family: $mono;
+  font-size: 0.85em;
+  padding: 0.1em 0.4em;
+  border: 1px solid var(--border);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  background: var(--bg-soft);
+}
+
+.markdown abbr[title] {
+  text-decoration: underline dotted;
+  cursor: help;
+}
+
+// --- 图片 ------------------------------------------------------------------
+
+.markdown img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 1.75em auto;
+  border-radius: 4px;
+}
+
+// 独占一段的图片由 theme.js 包进 .post-figure，alt 变成下方的图注。
+.markdown .post-figure {
+  margin: 1.75em 0;
+  text-align: center;
+}
+
+.markdown .post-figure img {
+  margin: 0 auto;
+  max-width: 100%;
+  // 手机拍的竖图按宽度铺满会有近 900px 高，把整页压垮。
+  // 改成同时限高，横图竖图缩放后视觉体量就差不多了。
+  max-height: 26rem;
+  width: auto;
+  height: auto;
+  border-radius: 5px;
+}
+
+.markdown .post-figure figcaption {
+  margin-top: 0.65em;
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: var(--fg-faint);
+  text-align: center;
+}
+
+// --- 表格 ------------------------------------------------------------------
+// 表格常常比正文宽，交给自己的容器横向滚动，页面本身永不横滚。
+
+.markdown table {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+  margin: 1.75em 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+.markdown th,
+.markdown td {
+  padding: 0.5em 0.9em;
+  border-bottom: 1px solid var(--border-soft);
+  text-align: left;
+  white-space: nowrap;
+}
+.markdown th {
+  font-weight: 600;
+  border-bottom: 1px solid var(--border);
+  color: var(--fg);
+}
+.markdown tbody tr:last-child td { border-bottom: 0; }
+
+// --- 脚注 ------------------------------------------------------------------
+
+.markdown .footnotes {
+  margin-top: 3em;
+  padding-top: 1.5em;
+  border-top: 1px solid var(--border-soft);
+  font-size: 0.88rem;
+  color: var(--fg-muted);
+}
+.markdown sup a { text-decoration: none; }
+
+// --- details ---------------------------------------------------------------
+
+.markdown details {
+  margin: 1.5em 0;
+  padding: 0.8em 1.1em;
+  background: var(--bg-soft);
+  border-radius: 4px;
+}
+.markdown summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--fg);
+}
+.markdown details[open] summary { margin-bottom: 0.8em; }

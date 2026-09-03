@@ -1,0 +1,84 @@
+# ============================================================
+#  quiet — 极简排版风 Hexo 主题（闲话版）
+#  这是「主题」的配置文件，和站点根目录的 _config.yml 是两份。
+# ============================================================
+
+# 侧边栏头像。放在主题的 source/ 下即可，换图直接替换文件。
+# 留空则不显示头像。
+avatar: /images/avatar.png
+
+# 侧边栏导航。key 是显示文案（可被 languages/*.yml 翻译），value 是路径。
+menu:
+  首页: /
+  归档: /archives/
+  标签: /tags/
+
+# 站名下的一行副标题。留空则不显示。
+tagline: '随便写写，闲话而已'
+
+# 首页 / 列表页
+index:
+  # 把 front-matter 里 `top: true` 的文章置顶，并从正常时间流里移除。
+  pin_top: true
+  # 显示摘要（取 `<!-- more -->` 之前的内容）
+  excerpt: true
+  # 摘要开头如果是这些前缀，展示时去掉（原文不受影响）。
+  excerpt_strip_prefix:
+    - '摘要：'
+    - '摘要:'
+  # 摘要最大字数，超出截断
+  excerpt_length: 100
+
+# 文章页
+post:
+  # 闲话多是短文，右侧悬浮目录默认关掉，版面更清爽。
+  toc: false
+  toc_max_depth: 3
+  # 闲话不必显示字数
+  word_count: false
+  # 文章页不再重复显示 <!-- more --> 之前的摘要。
+  hide_excerpt: true
+  # 上一篇 / 下一篇
+  prev_next: true
+
+# 代码块右上角「复制」按钮
+copy_code: true
+
+# 主题色模式：auto（跟随系统，可手动切换） / light / dark
+color_scheme: auto
+
+# 难度标签配色（OI 专用）。闲话博客用不到，留空即可，
+# 所有标签都会用默认的温和灰色。
+difficulty: {}
+
+# 页脚
+footer:
+  # 起始年份，用于渲染 "2025–2026"。留空则只显示当前年份。
+  since: 2026
+  # 页脚自定义 HTML，例如 ICP 备案号
+  custom: ''
+  # 显示 "Powered by Hexo"
+  powered: true
+
+# 社交链接，显示在页脚 / 侧栏底部。留空的行会被忽略。
+social:
+  GitHub: https://github.com/tickcrossy
+  # Email: mailto:you@example.com
+
+# ============================================================
+#  评论系统 —— Giscus（基于 GitHub Discussions）
+#  repo / repo_id / category_id 三项都填好时文章页才会显示评论区，
+#  留空则整个评论区不渲染。参数从 https://giscus.app 生成。
+# ============================================================
+comments:
+  default: false
+  repo: ''
+  repo_id: ''
+  category: 'Announcements'
+  category_id: ''
+  mapping: pathname
+  reactions: true
+  input_position: bottom
+  lang: zh-CN
+  theme_light: light
+  theme_dark: transparent_dark

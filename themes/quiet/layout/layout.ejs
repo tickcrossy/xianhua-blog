@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="<%= config.language || 'zh-Hans' %>">
+<head>
+  <%- partial('_partial/head') %>
+</head>
+<body class="<%= is_post() ? 'is-post' : '' %>"
+      data-copy-code="<%= theme.copy_code === false ? 'off' : 'on' %>"
+      data-copy-label="<%= __('copy') %>"
+      data-copied-label="<%= __('copied') %>"
+      data-enc-hint="<%= __('encrypt_hint') %>"
+      data-enc-unlock="<%= __('encrypt_unlock') %>"
+      data-enc-show="<%= __('encrypt_show') %>"
+      data-enc-hide="<%= __('encrypt_hide') %>"
+      data-enc-relock="<%= __('encrypt_relock') %>">
+  <a class="skip-link" href="#main">跳到正文</a>
+  <%- partial('_partial/sidebar') %>
+  <div class="site-body">
+    <main id="main" class="main">
+      <%- body %>
+    </main>
+    <%- partial('_partial/footer') %>
+  </div>
+  <%- js('js/theme') %>
+</body>
+</html>

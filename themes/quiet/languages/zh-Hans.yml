@@ -1,0 +1,35 @@
+archives: 归档
+tags: 标签
+categories: 分类
+about: 关于
+home: 首页
+
+posts: 篇
+tags_count: 个标签
+categories_count: 个分类
+tagged_with: 标签
+categorized_in: 分类
+
+pinned: 置顶
+untitled: 无标题
+contents: 目录
+words: 字
+comments: 评论
+
+prev_post: 上一篇
+next_post: 下一篇
+prev_page: 上一页
+next_page: 下一页
+
+no_posts: 还没有文章。
+no_tags: 还没有标签。
+no_categories: 还没有分类。
+
+copy: 复制
+copied: 已复制
+
+encrypt_hint: password
+encrypt_unlock: 提交
+encrypt_show: 显示
+encrypt_hide: 隐藏
+encrypt_relock: 重新加密

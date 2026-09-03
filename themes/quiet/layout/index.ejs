@@ -1,0 +1,28 @@
+<div class="wrap">
+<%
+  const pinTop = (theme.index || {}).pin_top !== false;
+  const pinned = pinTop && page.current === 1
+    ? site.posts.filter(p => p.top).sort('date', -1).toArray()
+    : [];
+  const stream = page.posts.toArray().filter(p => !(pinTop && p.top));
+%>
+
+<% if (pinned.length) { %>
+  <section class="entry-list entry-list--pinned">
+    <% for (const post of pinned) { %>
+      <%- partial('_partial/post-item', { post, pinned: true }) %>
+    <% } %>
+  </section>
+<% } %>
+
+<section class="entry-list">
+  <% for (const post of stream) { %>
+    <%- partial('_partial/post-item', { post, pinned: false }) %>
+  <% } %>
+  <% if (!stream.length && !pinned.length) { %>
+    <p class="empty"><%= __('no_posts') %></p>
+  <% } %>
+</section>
+
+<%- partial('_partial/paginator') %>
+</div>

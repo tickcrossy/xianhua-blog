@@ -1,0 +1,18 @@
+<article class="entry<%= locals.pinned ? ' is-pinned' : '' %>">
+  <div class="entry-head">
+    <time class="entry-date" datetime="<%= date_xml(post.date) %>"><%= date(post.date, 'YYYY-MM-DD') %></time>
+    <% if (locals.pinned) { %><span class="entry-pin"><%= __('pinned') %></span><% } %>
+  </div>
+
+  <h2 class="entry-title">
+    <a href="<%= url_for(post.path) %>"><%= post.title || __('untitled') %></a>
+    <% post.tags.each(tag => { %>
+      <span class="tag tag--<%= quiet_difficulty(tag.name) || 'plain' %>"><%= tag.name %></span>
+    <% }) %>
+  </h2>
+
+  <% if ((theme.index || {}).excerpt !== false) { %>
+    <% const summary = quiet_excerpt(post); %>
+    <% if (summary) { %><p class="entry-excerpt"><%= summary %></p><% } %>
+  <% } %>
+</article>

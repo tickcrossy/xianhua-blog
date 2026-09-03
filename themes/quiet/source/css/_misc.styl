@@ -1,0 +1,203 @@
+// ---------------------------------------------------------------------------
+// 第三方插件的收边
+// ---------------------------------------------------------------------------
+
+// hexo-blog-encrypt
+// ---------------------------------------------------------------------------
+// 插件的 hbe.style.css 是在正文里用 <link> 注入的，排在主题样式之后，
+// 所以这里一律用 #hexo-blog-encrypt 起头把权重压过去（id + class > class）。
+// 它默认那套是 float 布局 + #f0f0f0 底 / #aaa 字，手机上几乎看不见，
+// 下面把整块重排成一张居中的卡片。
+
+#hexo-blog-encrypt {
+  max-width: 24rem;
+  margin: 2.5rem auto;
+  padding: 1.75rem 1.5rem;
+  overflow: visible;
+  background: var(--bg-soft);
+  border: 1px solid var(--border-soft);
+  border-radius: 8px;
+  text-align: center;
+}
+
+#hexo-blog-encrypt .hbe-head { margin-bottom: 1.25rem; }
+
+#hexo-blog-encrypt .hbe-lock {
+  fill: none;
+  stroke: var(--fg-faint);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  margin-bottom: 0.5rem;
+}
+
+#hexo-blog-encrypt .hbe-hint {
+  margin: 0.35rem 0 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--fg-muted);
+}
+
+// 拆掉插件的 float / 百分比宽度，改成竖直堆叠
+#hexo-blog-encrypt .hbe-content {
+  padding: 0;
+  font-size: 1rem;
+  text-align: left;
+}
+#hexo-blog-encrypt .hbe-input {
+  display: block;
+  float: none;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  // 插件用 overflow:hidden 配合浮动标签动画，这里会把按钮裁掉
+  overflow: visible;
+}
+
+#hexo-blog-encrypt .hbe-row {
+  position: relative;
+  display: block;
+}
+
+#hexo-blog-encrypt .hbe-input-field {
+  display: block;
+  float: none;
+  width: 100%;
+  // 默认主题把输入框藏成 opacity:0 + 近白色文字，聚焦才浮现 ——
+  // 手机上这等于一个看不见也点不准的框，直接改回常显。
+  opacity: 1;
+  margin: 0;
+  // 插件给输入框压了 z-index:100，会盖住框内的「显示」按钮
+  z-index: auto;
+  // 16px 是下限：再小 iOS Safari 会在聚焦时自动放大整页
+  font-family: $sans;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  // 右侧给「显示」按钮留位置
+  padding: 0.7rem 4rem 0.7rem 0.9rem;
+  color: var(--fg);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  -webkit-appearance: none;
+  appearance: none;
+  transition: border-color 0.15s ease;
+}
+#hexo-blog-encrypt .hbe-input-field:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+// 插件的浮动标签动画在这套排版里没有意义，收掉
+#hexo-blog-encrypt .hbe-input-label {
+  display: none;
+}
+#hexo-blog-encrypt .hbe-input-label::before,
+#hexo-blog-encrypt .hbe-input-label::after {
+  display: none;
+}
+
+// 明文切换：贴在输入框内右侧
+#hexo-blog-encrypt .hbe-peek {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  right: 0.4rem;
+  transform: translateY(-50%);
+  appearance: none;
+  font-family: $sans;
+  font-size: 0.8rem;
+  line-height: 1;
+  // 44px 高，保证手指点得中
+  min-height: 2.1rem;
+  padding: 0 0.6rem;
+  color: var(--fg-faint);
+  background: none;
+  border: 0;
+  border-radius: 4px;
+  cursor: pointer;
+}
+#hexo-blog-encrypt .hbe-peek:hover { color: var(--fg); }
+
+#hexo-blog-encrypt .hbe-submit {
+  display: block;
+  width: 100%;
+  margin-top: 0.75rem;
+  appearance: none;
+  font-family: $sans;
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1.5;
+  min-height: 2.75rem;
+  padding: 0.6rem 1rem;
+  color: var(--bg);
+  background: var(--fg);
+  border: 0;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+#hexo-blog-encrypt .hbe-submit:hover { opacity: 0.85; }
+#hexo-blog-encrypt .hbe-submit:active { opacity: 0.7; }
+
+// 解密之后：容器变回普通正文容器，只留下「重新加密」那个小按钮
+// （is-unlocked 由 theme.js 在解密完成时打上）
+#hexo-blog-encrypt.is-unlocked {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: 0;
+  text-align: left;
+}
+
+#hexo-blog-encrypt .hbe-button {
+  display: inline-block;
+  margin-top: 2.5rem;
+  appearance: none;
+  font-family: $sans;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  padding: 0.35rem 0.85rem;
+  color: var(--fg-muted);
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+}
+#hexo-blog-encrypt .hbe-button:hover {
+  color: var(--fg);
+  border-color: var(--fg-faint);
+}
+
+@media (max-width: 30rem) {
+  #hexo-blog-encrypt {
+    max-width: none;
+    padding: 1.5rem 1.15rem;
+  }
+}
+
+// 打印：去掉页眉页脚与目录，正文铺满纸面
+@media print {
+  .site-header,
+  .site-footer,
+  .post-toc,
+  .post-nav,
+  .paginator,
+  .code-copy,
+  .skip-link { display: none !important; }
+
+  body {
+    background: #fff;
+    color: #000;
+    font-size: 11pt;
+  }
+  .wrap { max-width: none; padding: 0; }
+  .markdown a { text-decoration: none; }
+  .markdown pre,
+  .markdown figure.highlight {
+    background: #f6f6f6;
+    white-space: pre-wrap;
+  }
+}

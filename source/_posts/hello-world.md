@@ -1,38 +1,16 @@
 ---
-title: Hello World
+title: 开张啦
+date: 2026-09-03 08:30:00
+tags: 闲话
 ---
-Welcome to [Hexo](https://hexo.io/)! This is your very first post. Check [documentation](https://hexo.io/docs/) for more info. If you get any problems when using Hexo, you can find the answer in [troubleshooting](https://hexo.io/docs/troubleshooting.html) or you can ask me on [GitHub](https://github.com/hexojs/hexo/issues).
+这里是我用来发闲话的地方——没什么正经内容，想到什么写什么。
 
-## Quick Start
+<!-- more -->
 
-### Create a new post
+搬来一套清爽的排版，图个看着舒服。以后大概会写点：
 
-``` bash
-$ hexo new "My New Post"
-```
+- 生活里的小事和碎碎念
+- 看过的书、电影、听过的歌
+- 一些不成体系的想法
 
-More info: [Writing](https://hexo.io/docs/writing.html)
-
-### Run server
-
-``` bash
-$ hexo server
-```
-
-More info: [Server](https://hexo.io/docs/server.html)
-
-### Generate static files
-
-``` bash
-$ hexo generate
-```
-
-More info: [Generating](https://hexo.io/docs/generating.html)
-
-### Deploy to remote sites
-
-``` bash
-$ hexo deploy
-```
-
-More info: [Deployment](https://hexo.io/docs/one-command-deployment.html)
+慢慢来，不着急。

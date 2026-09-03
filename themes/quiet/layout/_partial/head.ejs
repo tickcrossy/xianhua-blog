@@ -1,0 +1,53 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="<%= theme.color_scheme === 'auto' ? 'light dark' : theme.color_scheme %>">
+
+<%
+  let pageTitle = config.title;
+  if (is_archive()) {
+    const span = page.year
+      ? (page.month ? page.year + '-' + String(page.month).padStart(2, '0') : page.year) + ' · '
+      : '';
+    pageTitle = span + __('archives') + ' · ' + config.title;
+  } else if (is_tag()) {
+    pageTitle = page.tag + ' · ' + config.title;
+  } else if (is_category()) {
+    pageTitle = page.category + ' · ' + config.title;
+  } else if (page.title) {
+    pageTitle = page.title + ' · ' + config.title;
+  }
+
+  const desc = (page.description || (is_post() ? quiet_excerpt(page) : '') || config.description || '').trim();
+%>
+<title><%= pageTitle %></title>
+<% if (desc) { %><meta name="description" content="<%= desc %>"><% } %>
+<% if (config.author) { %><meta name="author" content="<%= config.author %>"><% } %>
+<link rel="canonical" href="<%= full_url_for(page.path || '') %>">
+
+<meta property="og:type" content="<%= is_post() ? 'article' : 'website' %>">
+<meta property="og:title" content="<%= page.title || config.title %>">
+<meta property="og:site_name" content="<%= config.title %>">
+<meta property="og:url" content="<%= full_url_for(page.path || '') %>">
+<% if (desc) { %><meta property="og:description" content="<%= desc %>"><% } %>
+<meta name="twitter:card" content="summary">
+
+<% if (config.feed) { %>
+<link rel="alternate" type="application/atom+xml" href="<%= url_for(config.feed.path || '/atom.xml') %>" title="<%= config.title %>">
+<% } %>
+
+<%- css('css/style') %>
+
+<script>
+  // 在首屏渲染前定色，避免深色模式下闪一下白底
+  (function () {
+    var mode = '<%= theme.color_scheme || "auto" %>';
+    var saved = null;
+    try { saved = localStorage.getItem('quiet:scheme'); } catch (e) {}
+    var scheme = mode === 'auto' ? (saved || 'auto') : mode;
+    if (scheme === 'auto') {
+      scheme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.schemeAuto = '1';
+    }
+    document.documentElement.dataset.scheme = scheme;
+  })();
+</script>

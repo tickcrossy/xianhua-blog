@@ -1,0 +1,12 @@
+/* giscus 自定义浅色主题 = 官方 light 主题 + 关闭「跳转到评论者 GitHub 主页」的链接。
+   头像和用户名照常显示，只是点了不再跳转（pointer-events: none）。
+   时间戳指向的是评论本身、不是主页，不在这些选择器范围内，保持可点。 */
+@import "https://giscus.app/themes/light.css";
+
+a.gsc-comment-author-avatar,
+.gsc-comment-author a,
+.gsc-reply-author-avatar a,
+.gsc-reply-author a {
+  pointer-events: none;
+  cursor: default;
+}

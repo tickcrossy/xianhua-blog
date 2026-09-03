@@ -1,0 +1,35 @@
+archives: Archives
+tags: Tags
+categories: Categories
+about: About
+home: Home
+
+posts: posts
+tags_count: tags
+categories_count: categories
+tagged_with: Tagged
+categorized_in: Category
+
+pinned: Pinned
+untitled: Untitled
+contents: Contents
+words: words
+comments: Comments
+
+prev_post: Previous
+next_post: Next
+prev_page: Newer
+next_page: Older
+
+no_posts: No posts yet.
+no_tags: No tags yet.
+no_categories: No categories yet.
+
+copy: Copy
+copied: Copied
+
+encrypt_hint: password
+encrypt_unlock: Submit
+encrypt_show: Show
+encrypt_hide: Hide
+encrypt_relock: Lock again

@@ -1,0 +1,126 @@
+// ---------------------------------------------------------------------------
+// 首页文章流、归档、标签列表
+// ---------------------------------------------------------------------------
+
+.entry {
+  padding: 1.6rem 0;
+}
+.entry-list > .entry + .entry {
+  border-top: 1px solid var(--border-soft);
+}
+
+// 置顶区自带一条分隔线，内部不再叠加各自的上下留白
+.entry-list--pinned {
+  padding-bottom: 1.7rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border-soft);
+}
+.entry-list--pinned .entry { padding: 0 0 1.3rem; }
+.entry-list--pinned .entry:last-child { padding-bottom: 0; }
+
+.entry-head {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.3rem;
+}
+
+.entry-date {
+  font-family: $mono;
+  font-size: 0.76rem;
+  letter-spacing: 0.02em;
+  color: var(--fg-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+.entry-pin {
+  font-size: 0.68rem;
+  color: var(--fg-faint);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 0 0.3rem;
+  line-height: 1.5;
+}
+
+.entry-title {
+  margin: 0;
+  font-size: 1.12rem;
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+}
+.entry-title a { color: var(--fg); }
+.entry-title a:hover { color: var(--accent); }
+.entry-title .tag { margin-left: 0.45rem; }
+
+.entry-excerpt {
+  margin: 0.35rem 0 0;
+  font-size: 0.92rem;
+  line-height: 1.7;
+  color: var(--fg-muted);
+}
+
+// --- 归档 / 标签页 ---------------------------------------------------------
+
+.list-header {
+  padding-bottom: 1.75rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.list-title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.list-count {
+  margin: 0.3rem 0 0;
+  font-size: 0.85rem;
+  color: var(--fg-faint);
+}
+
+.archive-year { margin-top: 2.5rem; }
+
+.archive-year-label {
+  margin: 0 0 0.75rem;
+  font-family: $mono;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--fg-faint);
+}
+.archive-year-label .tag { font-family: $sans; }
+
+.tag-count {
+  font-size: 0.72rem;
+  color: var(--fg-faint);
+  margin-left: 0.35rem;
+}
+
+.archive-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.archive-item {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  padding: 0.3rem 0;
+  line-height: 1.6;
+}
+.archive-item time {
+  flex: none;
+  font-family: $mono;
+  font-size: 0.76rem;
+  color: var(--fg-faint);
+  font-variant-numeric: tabular-nums;
+}
+.archive-item > a {
+  color: var(--fg);
+  font-size: 0.98rem;
+}
+.archive-item > a:hover { color: var(--accent); }

@@ -1,0 +1,35 @@
+<%
+  const tags = site.tags.filter(t => t.length).sort('length', -1).toArray();
+%>
+
+<div class="wrap">
+  <header class="list-header">
+    <h1 class="list-title"><%= page.title || __('tags') %></h1>
+    <p class="list-count"><%= tags.length %> <%= __('tags_count') %></p>
+  </header>
+
+  <% if (page.content) { %>
+    <div class="post-content markdown"><%- page.content %></div>
+  <% } %>
+
+  <% if (!tags.length) { %>
+    <p class="empty"><%= __('no_tags') %></p>
+  <% } %>
+
+  <% for (const tag of tags) { %>
+    <section class="archive-year">
+      <h2 class="archive-year-label">
+        <a class="tag tag--<%= quiet_difficulty(tag.name) || 'plain' %>" href="<%= url_for(tag.path) %>"><%= tag.name %></a>
+        <span class="tag-count"><%= tag.length %></span>
+      </h2>
+      <ul class="archive-list">
+        <% tag.posts.sort('date', -1).each(post => { %>
+          <li class="archive-item">
+            <time datetime="<%= date_xml(post.date) %>"><%= date(post.date, 'YYYY-MM-DD') %></time>
+            <a href="<%= url_for(post.path) %>"><%= post.title || __('untitled') %></a>
+          </li>
+        <% }) %>
+      </ul>
+    </section>
+  <% } %>
+</div>

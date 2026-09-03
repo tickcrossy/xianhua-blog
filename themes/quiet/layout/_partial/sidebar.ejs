@@ -1,0 +1,38 @@
+<aside class="site-sidebar">
+  <div class="sidebar-inner">
+    <div class="site-id">
+      <% if (theme.avatar) { %>
+        <a class="site-avatar" href="<%= url_for('/') %>" aria-label="<%= config.title %>">
+          <img src="<%= url_for(theme.avatar) %>" alt="<%= config.author || config.title %>"
+               width="88" height="88" loading="lazy">
+        </a>
+      <% } %>
+      <a class="site-title" href="<%= url_for('/') %>"><%= config.title %></a>
+      <% if (theme.tagline) { %><p class="site-tagline"><%= theme.tagline %></p><% } %>
+    </div>
+
+    <nav class="site-nav" aria-label="站点导航">
+      <% for (const [label, path] of Object.entries(theme.menu || {})) { %>
+        <a href="<%= url_for(path) %>"><%= __(label) %></a>
+      <% } %>
+    </nav>
+
+    <div class="sidebar-foot">
+      <% if ((theme.color_scheme || 'auto') === 'auto') { %>
+        <button class="scheme-toggle" type="button" aria-label="切换深浅色" title="切换深浅色">
+          <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true" width="16" height="16">
+            <circle cx="12" cy="12" r="4.2"/>
+            <g class="rays"><path d="M12 2v2.6M12 19.4V22M2 12h2.6M19.4 12H22M4.9 4.9l1.9 1.9M17.2 17.2l1.9 1.9M19.1 4.9l-1.9 1.9M6.8 17.2l-1.9 1.9"/></g>
+          </svg>
+          <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true" width="16" height="16">
+            <path d="M20.5 14.6A8.6 8.6 0 0 1 9.4 3.5a8.6 8.6 0 1 0 11.1 11.1z"/>
+          </svg>
+        </button>
+      <% } %>
+      <% const social = Object.entries(theme.social || {}).filter(([, href]) => href); %>
+      <% for (const [label, href] of social) { %>
+        <a class="sidebar-social" href="<%= href %>" rel="me noopener"><%= label %></a>
+      <% } %>
+    </div>
+  </div>
+</aside>

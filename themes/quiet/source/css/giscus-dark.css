@@ -1,0 +1,11 @@
+/* giscus 自定义深色主题 = 官方 transparent_dark 主题 + 关闭作者主页链接的点击。
+   规则同 giscus-light.css，只是底层主题换成深色。 */
+@import "https://giscus.app/themes/transparent_dark.css";
+
+a.gsc-comment-author-avatar,
+.gsc-comment-author a,
+.gsc-reply-author-avatar a,
+.gsc-reply-author a {
+  pointer-events: none;
+  cursor: default;
+}

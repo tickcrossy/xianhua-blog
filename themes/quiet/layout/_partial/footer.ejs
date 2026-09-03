@@ -1,0 +1,14 @@
+<footer class="site-footer">
+  <div class="wrap">
+    <% /* 社交链接现在放在侧边栏底部，页脚不再重复一遍 */ %>
+    <p class="footer-meta">
+      © <%= quiet_years() %> <%= config.author || config.title %>
+      <% if ((theme.footer || {}).powered) { %>
+        <span class="sep">·</span> Powered by <a href="https://hexo.io/" rel="noopener">Hexo</a>
+      <% } %>
+    </p>
+    <% if ((theme.footer || {}).custom) { %>
+      <p class="footer-custom"><%- theme.footer.custom %></p>
+    <% } %>
+  </div>
+</footer>

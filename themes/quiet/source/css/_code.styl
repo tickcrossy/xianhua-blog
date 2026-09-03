@@ -1,0 +1,195 @@
+// ---------------------------------------------------------------------------
+// 代码块与行内代码
+// 兼容 Hexo 内建 highlight.js（figure.highlight + 行号表格）与裸 pre>code。
+// ---------------------------------------------------------------------------
+
+:root {
+  --code-comment: #8a867e;
+  --code-keyword: #8a4b7a;
+  --code-string: #3f6b46;
+  --code-number: #9a5f2b;
+  --code-title: #2f5d8a;
+  --code-meta: #7b7268;
+}
+
+[data-scheme='dark'] {
+  --code-comment: #6f6b63;
+  --code-keyword: #c691b4;
+  --code-string: #9fc48f;
+  --code-number: #d9a06a;
+  --code-title: #85afd6;
+  --code-meta: #9a9188;
+}
+
+.markdown code {
+  font-family: $mono;
+  font-size: 0.86em;
+  font-variant-ligatures: none;
+}
+
+// 行内代码
+.markdown :not(pre) > code {
+  padding: 0.12em 0.35em;
+  background: var(--bg-code);
+  border-radius: 3px;
+  color: var(--fg);
+  word-break: break-word;
+}
+
+.markdown pre {
+  margin: 1.75em 0;
+  padding: 1em 1.15em;
+  background: var(--bg-code);
+  border-radius: 5px;
+  overflow-x: auto;
+  font-size: 0.86rem;
+  line-height: 1.65;
+  tab-size: 2;
+}
+.markdown pre code {
+  font-size: 1em;
+  background: none;
+  padding: 0;
+  color: var(--fg);
+}
+
+// Hexo highlight.js：figure 包住 table，pre 由 figure 接管外观
+.markdown figure.highlight {
+  position: relative;
+  margin: 1.75em 0;
+  background: var(--bg-code);
+  border-radius: 5px;
+  overflow: hidden;
+  font-size: 0.86rem;
+  line-height: 1.65;
+}
+// 表格单元格会被长行撑开、再被 figure 的 overflow:hidden 裁掉，
+// td 上的 overflow-x 对表格布局不起作用。把 table 变成块级滚动容器，
+// 长行就能横向滚动；复制按钮仍钉在 figure 右上角不随内容滚。
+.markdown figure.highlight table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  margin: 0;
+  border: 0;
+  font-size: 1em;
+}
+.markdown figure.highlight pre {
+  margin: 0;
+  padding: 0;
+  background: none;
+  border-radius: 0;
+  overflow: visible;
+  white-space: pre;
+}
+.markdown figure.highlight td {
+  padding: 1em 0;
+  border: 0;
+  white-space: normal;
+  // Hexo 末尾会多输出一个空行：行号列那一行有数字、代码列没有，
+  // 两列高度因此差一行。默认的 middle 对齐会让整列行号错位，改成顶对齐。
+  vertical-align: top;
+}
+.markdown figure.highlight .gutter {
+  width: 1px;
+  padding-left: 1.15em;
+  padding-right: 0.9em;
+  text-align: right;
+  user-select: none;
+  color: var(--fg-faint);
+  opacity: 0.6;
+}
+.markdown figure.highlight .code {
+  padding-right: 1.15em;
+  width: 100%;
+}
+.markdown figure.highlight .line { display: block; }
+// 行号表格里 hexo 会插入 <br>，让它不额外占高
+.markdown figure.highlight br { display: none; }
+
+// 代码块标题（```lang title 形式）
+.markdown figure.highlight figcaption {
+  padding: 0.5em 1.15em;
+  margin: 0;
+  text-align: left;
+  font-size: 0.78rem;
+  color: var(--fg-faint);
+  border-bottom: 1px solid var(--border-soft);
+}
+.markdown figure.highlight figcaption a { float: right; }
+
+// --- 语法着色 ---------------------------------------------------------------
+
+.markdown .comment,
+.markdown .quote,
+.markdown .hljs-comment,
+.markdown .hljs-quote { color: var(--code-comment); font-style: italic; }
+
+.markdown .keyword,
+.markdown .selector-tag,
+.markdown .literal,
+.markdown .hljs-keyword,
+.markdown .hljs-selector-tag,
+.markdown .hljs-literal { color: var(--code-keyword); }
+
+.markdown .string,
+.markdown .regexp,
+.markdown .addition,
+.markdown .hljs-string,
+.markdown .hljs-regexp,
+.markdown .hljs-addition { color: var(--code-string); }
+
+.markdown .number,
+.markdown .built_in,
+.markdown .type,
+.markdown .hljs-number,
+.markdown .hljs-built_in,
+.markdown .hljs-type { color: var(--code-number); }
+
+.markdown .title,
+.markdown .section,
+.markdown .attr,
+.markdown .name,
+.markdown .hljs-title,
+.markdown .hljs-section,
+.markdown .hljs-attr,
+.markdown .hljs-name { color: var(--code-title); }
+
+.markdown .meta,
+.markdown .doctag,
+.markdown .params,
+.markdown .hljs-meta,
+.markdown .hljs-doctag,
+.markdown .hljs-params { color: var(--code-meta); }
+
+.markdown .deletion,
+.markdown .hljs-deletion { color: var(--hard); }
+
+// --- 复制按钮 ---------------------------------------------------------------
+
+.code-copy {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  z-index: 1;
+  appearance: none;
+  font: inherit;
+  font-size: 0.72rem;
+  line-height: 1.6;
+  padding: 0.1rem 0.5rem;
+  color: var(--fg-faint);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.15s ease, color 0.15s ease;
+}
+.markdown pre:hover .code-copy,
+.markdown figure.highlight:hover .code-copy,
+.code-copy:focus-visible { opacity: 1; }
+.code-copy:hover { color: var(--fg); }
+.code-copy.is-done { color: var(--easy); }
+
+// pre 本身要能定位复制按钮
+.markdown pre { position: relative; }

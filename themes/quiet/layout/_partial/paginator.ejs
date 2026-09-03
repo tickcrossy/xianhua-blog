@@ -1,0 +1,10 @@
+<% if (page.total > 1) { %>
+  <nav class="paginator" aria-label="分页">
+    <%- paginator({
+      prev_text: '← ' + __('prev_page'),
+      next_text: __('next_page') + ' →',
+      mid_size: 1,
+      escape: false
+    }) %>
+  </nav>
+<% } %>

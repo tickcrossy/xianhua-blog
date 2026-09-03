@@ -1,0 +1,161 @@
+// ---------------------------------------------------------------------------
+// 文章页：标题区、上下篇、悬浮目录
+// ---------------------------------------------------------------------------
+
+.post-header {
+  padding-bottom: 2rem;
+  margin-bottom: 2.25rem;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.post-title {
+  margin: 0;
+  font-size: 1.7rem;
+  font-weight: 650;
+  line-height: 1.4;
+  letter-spacing: 0.005em;
+}
+
+@media (min-width: 40rem) {
+  .post-title { font-size: 1.9rem; }
+}
+
+.post-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 0.7rem;
+  font-size: 0.82rem;
+  color: var(--fg-faint);
+}
+.post-meta time {
+  font-family: $mono;
+  font-variant-numeric: tabular-nums;
+}
+.post-meta .sep { color: var(--border); }
+
+// --- 上一篇 / 下一篇 -------------------------------------------------------
+
+.post-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-soft);
+}
+
+.post-nav-item { display: block; }
+.post-nav-next { text-align: right; }
+
+.post-nav-label {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--fg-faint);
+  margin-bottom: 0.15rem;
+}
+
+.post-nav-title {
+  display: block;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: var(--fg);
+}
+.post-nav-item:hover .post-nav-title { color: var(--accent); }
+
+@media (max-width: 32rem) {
+  .post-nav { grid-template-columns: 1fr; }
+  .post-nav-next { text-align: left; }
+}
+
+// --- 悬浮目录 --------------------------------------------------------------
+// 只在正文栏两侧确实有空余时出现；窄屏完全不渲染视觉负担。
+
+.post-toc { display: none; }
+
+// 正文栏被 15rem 的固定侧栏推到了右边，所以它的中线不是 50vw 而是 50vw + 7.5rem。
+// 下面的常数由此而来：19.5rem = 栏宽（39rem）的一半，2.5rem = 与正文的间距。
+// calc() 里不放 Stylus 变量，避免被提前求值。
+@media (min-width: 90rem) {
+  .post-toc {
+    display: block;
+    position: fixed;
+    top: 8rem;
+    left: calc(50vw + 29.5rem);
+    // 不用 CSS 的 min()，Stylus 会把它当成自己的数学函数
+    width: calc(50vw - 31rem);
+    max-width: 15rem;
+    max-height: calc(100vh - 12rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    font-size: 0.8rem;
+    line-height: 1.6;
+    color: var(--fg-muted);
+    // 目录是辅助信息，默认压低存在感，指过去再完全显形
+    opacity: 0.55;
+    transition: opacity 0.2s ease;
+  }
+  .post-toc:hover { opacity: 1; }
+
+  .post-toc::-webkit-scrollbar { width: 4px; }
+  .post-toc::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 2px;
+  }
+}
+
+.post-toc-title {
+  margin: 0 0 0.6rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--fg-faint);
+}
+
+.post-toc ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.post-toc ol ol { padding-left: 0.85rem; }
+
+.post-toc .toc-item { margin: 0.12rem 0; }
+
+.post-toc .toc-link {
+  display: block;
+  padding: 0.12rem 0 0.12rem 0.7rem;
+  border-left: 2px solid transparent;
+  color: var(--fg-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.post-toc .toc-link:hover { color: var(--fg); }
+.post-toc .toc-link.is-active {
+  color: var(--fg);
+  border-left-color: var(--accent);
+}
+
+
+// --- 评论区（Giscus） ------------------------------------------------------
+
+.post-comments {
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-soft);
+}
+
+.post-comments-title {
+  margin: 0 0 1.2rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--fg-faint);
+}
+
+// giscus 自带的 iframe 顶部留白偏大，收一点更贴合排版
+.post-comments .giscus,
+.post-comments .giscus-frame { width: 100%; }
+.post-comments .giscus-frame { border: none; }

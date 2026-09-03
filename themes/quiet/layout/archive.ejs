@@ -1,0 +1,74 @@
+<%
+  let heading = __('archives');
+  let subhead = '';
+
+  if (is_tag()) {
+    heading = page.tag;
+    subhead = __('tagged_with');
+  } else if (is_category()) {
+    heading = page.category;
+    subhead = __('categorized_in');
+  } else if (page.year) {
+    heading = page.month
+      ? page.year + '-' + String(page.month).padStart(2, '0')
+      : String(page.year);
+  }
+
+  const posts = page.posts.toArray();
+
+  // page.posts 是分页后的那一页，直接数会把「15 篇」显示成「10 篇」，
+  // 所以标题下的数量要回到全量数据里取。
+  let total;
+  if (is_tag()) {
+    total = (site.tags.findOne({ name: page.tag }) || {}).length;
+  } else if (is_category()) {
+    total = (site.categories.findOne({ name: page.category }) || {}).length;
+  } else if (page.year) {
+    total = site.posts.filter(p =>
+      p.date.year() === page.year && (!page.month || p.date.month() + 1 === page.month)
+    ).length;
+  } else {
+    total = site.posts.length;
+  }
+  if (total == null) total = posts.length;
+
+  // 按年分组；同一年内保持生成器给出的时间倒序
+  const groups = [];
+  for (const post of posts) {
+    const year = date(post.date, 'YYYY');
+    if (!groups.length || groups[groups.length - 1].year !== year) {
+      groups.push({ year, posts: [] });
+    }
+    groups[groups.length - 1].posts.push(post);
+  }
+%>
+
+<div class="wrap">
+  <header class="list-header">
+    <h1 class="list-title"><%= heading %></h1>
+    <p class="list-count">
+      <% if (subhead) { %><%= subhead %> · <% } %><%= total %> <%= __('posts') %>
+    </p>
+  </header>
+
+  <% for (const group of groups) { %>
+    <section class="archive-year">
+      <h2 class="archive-year-label"><%= group.year %></h2>
+      <ul class="archive-list">
+        <% for (const post of group.posts) { %>
+          <li class="archive-item">
+            <time datetime="<%= date_xml(post.date) %>"><%= date(post.date, 'MM-DD') %></time>
+            <a href="<%= url_for(post.path) %>"><%= post.title || __('untitled') %></a>
+            <% post.tags.each(tag => { %>
+              <span class="tag tag--<%= quiet_difficulty(tag.name) || 'plain' %>"><%= tag.name %></span>
+            <% }) %>
+          </li>
+        <% } %>
+      </ul>
+    </section>
+  <% } %>
+
+  <% if (!posts.length) { %><p class="empty"><%= __('no_posts') %></p><% } %>
+
+  <%- partial('_partial/paginator') %>
+</div>
